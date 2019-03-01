@@ -53,7 +53,6 @@ def rotateY(matrix,angle):
     m[2][2] = m[1][1]
     matrix_mult(m,matrix)
 
-
 def rotateZ(matrix,angle):
     m = new_matrix()
     ident(new_matrix)

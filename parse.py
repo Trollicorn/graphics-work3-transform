@@ -3,12 +3,12 @@ from matrix import *
 from draw import *
 
 def argify(line):
-    line = line.split()
-    for i in range(len(line)):
-        line[i] = int(line)
+    args = line.split()
+    for i in range(len(args)):
+        args[i] = int(args[i])
+    return args
 
-
-def parse(fname, edge, transform, screen, color):
+def parse(fname, edge, orders, screen, color):
     transform = {
         "line": add_edge,
         "scale": dilate,
@@ -16,10 +16,8 @@ def parse(fname, edge, transform, screen, color):
         "rotate": rotate
     }
     control = {
-        "ident": ident,
-        "apply": matrix_mult,
-        "display": display,
-        "save": save
+        "ident": lambda: ident(orders),
+        "apply": lambda: matrix_mult(orders,edge)
     }
     f = open(fname, 'r')
     for line in f:
@@ -27,3 +25,11 @@ def parse(fname, edge, transform, screen, color):
             control[line]
         elif line in transform:
             args = f.next()
+            transform[line](orders,argify(line))
+        elif line == "save":
+            name = f.next()
+            save_extension(name)
+        elif line == "display":
+            draw_lines(edge,screen,color)
+            display(screen)
+    f.close()

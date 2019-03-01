@@ -63,7 +63,7 @@ def matrix_mult( m1, m2 ):
 
 
                 #add product of corresponding values
-                m2[c][r]+= curr_col[i] * m1[r][i]
+                m2[c][r]+= curr_col[i] * m1[i][r]
             #    print("="+str(m2[c][r]))
             #    print_matrix(m2)
             #    print("")
