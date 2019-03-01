@@ -21,6 +21,10 @@ def parse(fname, edge, orders, screen, color):
     }
     f = open(fname, 'r')
     for line in f:
+        print(type(line))
+        """
+        line = line[0:len(line)-1]
+        print("[" + line + "]")
         if line in control:
             control[line]
         elif line in transform:
@@ -31,5 +35,5 @@ def parse(fname, edge, orders, screen, color):
             save_extension(name)
         elif line == "display":
             draw_lines(edge,screen,color)
-            display(screen)
+            display(screen)"""
     f.close()
