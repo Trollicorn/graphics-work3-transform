@@ -49,5 +49,5 @@ def parse(fname, edge, orders, screen, color):
             clear_screen(screen)
             draw_lines(edge,screen,color)
 #            print_matrix(edge)
-    #        display(screen)
+            display(screen)
     f.close()
