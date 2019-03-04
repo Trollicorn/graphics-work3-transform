@@ -5,35 +5,49 @@ from draw import *
 def argify(line):
     args = line.split()
     for i in range(len(args)):
-        args[i] = int(args[i])
+        try:
+            args[i] = int(args[i])
+        except ValueError:
+    #        print(args[0])
+            pass
     return args
 
 def parse(fname, edge, orders, screen, color):
     transform = {
         "line": add_edge,
         "scale": dilate,
-        "move": translate,
+        "translate": translate,
         "rotate": rotate
     }
-    control = {
-        "ident": lambda: ident(orders),
-        "apply": lambda: matrix_mult(orders,edge)
-    }
     f = open(fname, 'r')
+
     for line in f:
-        print(type(line))
-        """
-        line = line[0:len(line)-1]
-        print("[" + line + "]")
-        if line in control:
-            control[line]
-        elif line in transform:
+#        print(type(line))
+        line = line[:len(line)-1]
+    #    print("[" + line + "]")
+        if line in transform:
             args = f.next()
-            transform[line](orders,argify(line))
-        elif line == "save":
-            name = f.next()
-            save_extension(name)
-        elif line == "display":
+            #print(args)
+            args = argify(args)
+            if line == "line":
+                transform[line](edge,args)
+            else:
+                transform[line](orders,args)
+        elif line == "apply":
+            matrix_mult(orders,edge)
+            clear_screen(screen)
             draw_lines(edge,screen,color)
-            display(screen)"""
+        elif line == "ident":
+            orders = new_matrix()
+            ident(orders)
+        elif line == "save":
+    #        print_matrix(edge)
+            name = f.next()
+            name = name[:len(name)-1]
+            save_extension(screen,name)
+        elif line == "display":
+            clear_screen(screen)
+            draw_lines(edge,screen,color)
+#            print_matrix(edge)
+    #        display(screen)
     f.close()

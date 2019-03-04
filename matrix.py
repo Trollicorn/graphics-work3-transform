@@ -26,10 +26,6 @@ def print_matrix( matrix ):
 #you may assume matrix is square
 def ident( matrix ):
     n = len(matrix)
-    x = len(matrix[0])
-    if n != x:
-        print("not square matrix")
-        return
     for c in range(n):
         for r in range(n):
             if  c == r:
